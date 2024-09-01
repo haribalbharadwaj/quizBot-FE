@@ -58,7 +58,7 @@ function Signup() {
 
       const userId = response.data.userId;
       if (userId) {
-        localStorage.setItem('userId', userId);gi
+        localStorage.setItem('userId', userId);
         console.log('User ID stored in localStorage:', userId);
         
         // Redirect to workspace after successful signup
