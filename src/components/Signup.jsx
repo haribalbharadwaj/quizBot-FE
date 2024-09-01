@@ -50,7 +50,7 @@ function Signup() {
         throw new Error('Backend URL is not defined');
       }
 
-      const response = await axios.post(`${backendUrl}/user/register`, userData, {
+      const response = await axios.post(`${backendUrl}user/register`, userData, {
         headers: {
           'Content-Type': 'application/json',
         },
