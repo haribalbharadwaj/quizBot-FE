@@ -50,7 +50,7 @@ function Signup() {
         throw new Error('Backend URL is not defined');
       }
 
-      const response = await axios.post(`${backendUrl}user/register`, userData, {
+      const response = await axios.post(`${backendUrl}/user/register`, userData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -58,7 +58,7 @@ function Signup() {
 
       const userId = response.data.userId;
       if (userId) {
-        localStorage.setItem('userId', userId);
+        localStorage.setItem('userId', userId);gi
         console.log('User ID stored in localStorage:', userId);
         
         // Redirect to workspace after successful signup
