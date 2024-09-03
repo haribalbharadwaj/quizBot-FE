@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(),
     replace({
@@ -15,7 +14,4 @@ export default defineConfig({
       },
     }),
   ],
-  build: {
-    outDir: 'dist', // Ensures the output directory is 'dist'
-  },
 })
