@@ -14,7 +14,7 @@ function Home (){
           <Route path='/' element={<Signup/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
-          <Route path='/quiz/:quizId' element={<QuizPage/>}/>
+          <Route path='/quiz/:id' element={<QuizPage/>}/>
           <Route path="/quizzes" element={<Analysis/>}/>
           <Route path="/question-analysis/:id" element={<QuestionAnalysis/>}/>
         </Routes>
