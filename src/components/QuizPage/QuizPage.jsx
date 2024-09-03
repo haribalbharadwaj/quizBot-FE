@@ -5,7 +5,7 @@ import Cup from "../../assets/Cup.png"
 import "../QuizPage/quizPage.css";
 
 const QuizPage = () => {
-  const { quizId } = useParams(); // Fetch the quizId from the URL
+  const { quizId } = useParams(); // Fetch the quizId from the UR
   const [quiz, setQuiz] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
@@ -19,6 +19,8 @@ const QuizPage = () => {
     const fetchQuiz = async () => {
       try {
         const backendUrl = process.env.REACT_APP_QUIZBOT_BACKEND_URL;
+        console.log('Backend URL:', process.env.REACT_APP_QUIZBOT_BACKEND_URL);
+
         if (!backendUrl) {
           throw new Error('Backend URL is not defined');
         }
