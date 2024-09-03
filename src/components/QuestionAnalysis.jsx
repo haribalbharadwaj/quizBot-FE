@@ -29,10 +29,7 @@ const QuestionAnalysisPage = () => {
 const [quizName, setQuizName] = useState('');
   const [selectedDot, setSelectedDot] = useState(0);
   const [correctAnswerIndex, setCorrectAnswerIndex] = useState(null);
- 
- 
   const [quizzes, setQuizzes] = useState([]);
-
   const [isEditBlockVisible, setIsEditBlockVisible] = useState(false);
   const [isDeleteDialogVisible, setIsDeleteDialogVisible] = useState(false);
   const [quizToDelete, setQuizToDelete] = useState(null);
@@ -43,17 +40,16 @@ const [quizName, setQuizName] = useState('');
   const [editQuizType, setEditQuizType] = useState('');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isScorePage,setIsScorePage]= useState(false);
-
+  const [currentQuestionInput,setCurrentQuestionInput]=useState({
+    question: '',
+    options: [],
+    correctAnswerIndex: null,
+});
   const popupRef = useRef(null);
-
   const handleDashboard =()=>{
     navigate('/dashboard')
   }
-
   const navigate = useNavigate();
-  
-
-
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -109,12 +105,14 @@ const handleCopyLink = () => {
 const handleInputsBlock = ()=>{
   if(clickedButton==='qna'){
     setIsQABlockVisible(true);
+    setIsPollBlockVisible(false);
     
     console.log('type:', clickedButton);
   }
   else if(clickedButton==='poll'){
+   // handlePollBlockVisibility();
     setIsPollBlockVisible(true);
-   
+    setIsQABlockVisible(false);
     console.log('type:', clickedButton);
   }
 }
@@ -126,15 +124,15 @@ const closePollBlock =()=>{
   setIsPollBlockVisible(false);
 }
 
-const handleDeleteOption = (index) => {
-  const newInputs = [...inputs];
-newInputs.splice(index, 1);
-setInputs(newInputs);
-if (correctAnswerIndex === index) {
-  setCorrectAnswerIndex(null); // Reset correct answer if deleted
-} else if (correctAnswerIndex > index) {
-  setCorrectAnswerIndex(correctAnswerIndex - 1); // Adjust index if needed
-}
+const handleDeleteOption = (indexToDelete) => {
+  // Delete the input at the specified index
+  setInputs(prevInputs => prevInputs.filter((_, index) => index !== indexToDelete));
+
+  if (correctAnswerIndex === indexToDelete) {
+    setCorrectAnswerIndex(null);
+  } else if (correctAnswerIndex > indexToDelete) {
+    setCorrectAnswerIndex(correctAnswerIndex - 1);
+  }
 };
 
 
@@ -143,15 +141,21 @@ setCorrectAnswerIndex(index); // Set the selected option as the correct answer
 };
 
 
-const handleInputChange = (index, e, type) => {
-const updatedInputs = [...inputs];
-if (type === 'text') {
-  updatedInputs[index].text = e.target.value;
-} else if (type === 'imageUrl') {
-  updatedInputs[index].imageUrl = e.target.value;
-}
-setInputs(updatedInputs);
+const handleInputChange = (index, event, type) => {
+  const updatedInputs = [...inputs];
+  if (type === 'text') {
+    updatedInputs[index].text = event.target.value;
+  } else if (type === 'imageUrl') {
+    updatedInputs[index].imageUrl = event.target.value;
+  }
+  setInputs(updatedInputs);
+
+  setCurrentQuestionInput({
+    ...currentQuestionInput,
+    [event.target.name]: event.target.value,
+});
 };
+
 
 const handleAddOption = () => {
 const newInput = {};
@@ -170,10 +174,33 @@ setInputs([...inputs, newInput]);
 };
 
 
-
 const handleDotClick = (index) => {
   setSelectedDot(index); // Update the selected dot state
+
+  // Set up inputs based on the selected dot
+  let newInputs = [];
+  if (index === 0) {
+     newInputs = [{ text: '' },
+      { text: '' },
+      { text: '' },
+      { text: '' }
+     ]  // Text option
+  } else if (index === 1) {
+      newInputs = [{ imageUrl: '' },
+        { imageUrl: '' },
+        { imageUrl: '' },
+        { imageUrl: '' }
+      ]; // Image option
+  } else if (index === 2) {
+      newInputs = [{ text: '', imageUrl: '' },
+        { text: '', imageUrl: '' },
+        { text: '', imageUrl: '' },
+        { text: '', imageUrl: '' }
+      ]; // Text and Image option
+  }
+  setInputs(newInputs);
 };
+
 
 
 
@@ -189,20 +216,18 @@ const handleSaveQuestion = () => {
     updatedCircles[currentCircleIndex] = {
         number: currentCircleIndex + 1,
         questionData: {
-            type: 'QA',  // This sets the question type as 'QA'
+            type: 'Qna',  // This sets the question type as 'QA'
             question: qAQuestion,
             options: inputs,
             correctAnswerIndex: correctAnswerIndex,
+            timer: timerValue
         }
     };
 } else if (pollQuestion) {
-    const pollOptions =  [
-      { text: 'Option 1', value: inputs[0]?.text || '' },
-      { text: 'Option 2', value: inputs[1]?.text || '' },
-      { text: 'Option 3', value: inputs[2]?.text || '' },
-      { text: 'Option 4', value: inputs[3]?.text || '' },
-  ];
-
+  const pollOptions = inputs.map((input, index) => ({
+    text: `Option ${index + 1}`,
+    value: input.text || ''
+}));
   
   updatedCircles[currentCircleIndex] = {
     number: currentCircleIndex + 1,
@@ -210,6 +235,7 @@ const handleSaveQuestion = () => {
         type: 'Poll',  // This sets the question type as 'Poll'
         question: pollQuestion,
         options: pollOptions,
+        timer: 0
     }
 };
 }
@@ -235,8 +261,55 @@ const closePublishBlock =()=>{
   setIsPublishedVisible(false);
 }
 
+
+const validatePollQuestion = (pollQuestion) => {
+  if (!pollQuestion || pollQuestion.trim() === '') {
+      return true; // Error exists if pollQuestion is empty or just whitespace
+  }
+  // Add more validation logic here if needed
+  return false; // No error
+};
+
+// Validation for QAQuestion
+const validateQAQuestion = (qAQuestion) => {
+  if (!qAQuestion || qAQuestion.trim() === '') {
+      return true; // Error exists if qaQuestion is empty or just whitespace
+  }
+  // Add more validation logic here if needed
+  return false; // No error
+};
+
 const handleQuizName = async () => {
-  const newError = { quizName: !quizName };
+
+
+  
+  const updatedCircles = [...circles];
+  if ((pollQuestion.trim() !== '' || qAQuestion.trim() !== '') || inputs.length > 0) {
+
+    
+  let timerValue = timerOption === 'off' ? 0 : timer; 
+  console.log('Timer value:', timerValue); // Add this line to debug timer value
+    updatedCircles[currentCircleIndex] = {
+        number: circles[currentCircleIndex]?.number || currentCircleIndex + 1,
+        questionData: {
+            question: clickedButton === 'poll' ? pollQuestion : qAQuestion,
+            options: inputs,
+            correctAnswerIndex,
+            timer: clickedButton === 'qna' ? timerValue : undefined 
+        }
+    };
+}
+  // Set circles state
+  setCircles(updatedCircles);
+
+
+  let newError = { quizName: !quizName };
+
+  if (clickedButton === 'poll') {
+    newError = { ...newError, pollQuestion: validatePollQuestion(pollQuestion) };
+} else if (clickedButton === 'qna') {
+    newError = { ...newError, qAQuestion: validateQAQuestion(qAQuestion) };
+}
   setError(newError);
 
   if (Object.values(newError).includes(true)) {
@@ -244,21 +317,23 @@ const handleQuizName = async () => {
       return;
   }
 
+  const validQuestions = updatedCircles.filter(circle => {
+    const { questionData } = circle;
+    return questionData.question.trim() !== '' && questionData.options.length > 0;
+}).map(circle => 
+  { return {
+        questionText: circle.questionData.question,
+        options: circle.questionData.options,
+        correctAnswerIndex: circle.questionData.correctAnswerIndex,
+        questionType: clickedButton.charAt(0).toUpperCase() + clickedButton.slice(1),
+        timer: circle.questionData.timer  
+    };
+});
+
   const quizData = {
       quizName,
-      questions: circles.map(circle => {
-          const questionType = circle.questionData.type;  // This should match the clickedButton
-          console.log(`Question: ${circle.questionData.question}, Type: ${questionType}`);  // Log each question's type
-          console.log("Question Type:", circle.questionData.type);
-
-          return {
-              questionText: circle.questionData.question,
-              options: circle.questionData.options,
-              correctAnswerIndex: circle.questionData.correctAnswerIndex,
-              questionType: clickedButton.charAt(0).toUpperCase() + clickedButton.slice(1) 
-          };
-      })
-  };
+      questions: validQuestions
+  }
 
   console.log("Quiz Data before sending:", quizData);
 
@@ -340,24 +415,58 @@ const closeCreateQuiz = ()=>{
 }
 
 const addCircle = () => {
-const newCircle = { number: circles.length + 1, questionData: { question: '', options: [] } };
-setCircles([...circles, newCircle]);
-setCurrentCircleIndex(circles.length);
-setQAQuestion('');  // Clear input boxes
-setInputs([]);       // Clear options
-setCorrectAnswerIndex(null); // Clear correct answer selection  
-handleSaveQuestion();
-};
+  const updatedCircles = [...circles];
+
+  if ((pollQuestion.trim() !== '' || qAQuestion.trim() !== '') || inputs.length > 0) {
+    let timerValue = timerOption === 'off' ? 0 : timer; 
+      // Determine the question type and save accordingly
+      if (qAQuestion.trim() !== '') {
+          updatedCircles[currentCircleIndex] = {
+              number: circles[currentCircleIndex].number || currentCircleIndex + 1,
+              questionData: {
+                  type: 'Qna',  // This sets the question type as 'QA
+                  question: qAQuestion,
+                  options: inputs,
+                  correctAnswerIndex: correctAnswerIndex || null,
+                  timer: timerValue 
+              }
+          };
+      } else if (pollQuestion.trim() !== '') {
+          const pollOptions =  [
+              { text: 'Option 1', value: inputs[0]?.text || '' },
+              { text: 'Option 2', value: inputs[1]?.text || '' },
+              { text: 'Option 3', value: inputs[2]?.text || '' },
+              { text: 'Option 4', value: inputs[3]?.text || '' },
+          ];
+
+          updatedCircles[currentCircleIndex] = {
+              number: circles[currentCircleIndex].number || currentCircleIndex + 1,
+              questionData: {
+                  type: 'Poll',  // This sets the question type as 'Poll'
+                  question: pollQuestion,
+                  options: inputs,
+              }
+          };
+      }
+  }
+
+    const newCircle = { number: circles.length + 1, questionData: { question: '', options: [] } };
+    setCircles([...circles, newCircle]);
+    setCurrentCircleIndex(circles.length);
+    setQAQuestion('');  // Clear input boxes
+    setInputs([]);       // Clear options
+    setCorrectAnswerIndex(null); // Clear correct answer selection  
+    };
 
 const handleCircleClick = (index) => {
-setCurrentCircleIndex(index);
-const circle = circles[index];
-if (circle) {
-  setQAQuestion(circle.questionData.question);
-  setPollQuestion(circle.questionData.question);
-  setInputs(circle.questionData.options || []);
-  setCorrectAnswerIndex(circle.questionData.correctAnswerIndex || null);
-}
+  const circle = circles[index];
+  setCurrentCircleIndex(index);
+  if (circle) {
+    setQAQuestion(circle.questionData.question);
+    setPollQuestion(circle.questionData.question);
+    setInputs(circle.questionData.options || []);
+    setCorrectAnswerIndex(circle.questionData.correctAnswerIndex || null);
+  }
 };
 
 

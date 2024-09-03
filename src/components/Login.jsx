@@ -131,14 +131,14 @@ const handleRegister=()=>{
         flexDirection:'column'
       }}>
 
-<div style={{width:'187px',height:'100px',top:'136px',left:'650px',position:'absolute'}}>
+<div style={{width:'187px',height:'100px',top:'180px',left:'850px',position:'absolute'}}>
             <span style={{fontFamily: 'Jomhuria,sans-serif',fontSize: '100px',fontWeight:'400',lineHeight:'100px',textAlign:'left',
               color:'#474444'
             }}>
             QUIZZIE
             </span>
           </div>
-          <div style={{width: '417px',height:'37px',top:'263px',left:'35%',display:'flex',flexDirection:'row',position:'absolute'}}>
+          <div style={{width: '417px',height:'37px',top:'300px',left:'40%',display:'flex',flexDirection:'row',position:'absolute'}}>
             <button style={{width:'217px',height:'37px',top:'267px',left:'422px',borderRadius:'10px',background:'#FFFFFF',
               boxShadow: '0px 0px 50px 0px #0019FF3D',color:'#474444',fontFamily:'Poppins,sans-serif',borderColor:'#FFFFFF',
               fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center'              
@@ -150,7 +150,7 @@ const handleRegister=()=>{
             }}>Log In</button>
 
           </div>
-        <div className='container' style={{ width: '518px', height: '107px',top:'0px', position: 'relative' }}>
+        <div className='container' style={{ width: '518px', height: '107px',top:'20px', position: 'relative',left:'-15px' }}>
   <form onSubmit={handleSubmit} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
     
     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
@@ -225,7 +225,7 @@ const handleRegister=()=>{
       <button type="submit" style={{
         width: '274px', height: '40px', borderRadius: '8px', background: '#A0C4FF', color: '#474444',
         fontFamily: 'Poppins, sans-serif', fontSize: '16px', fontWeight: '600', cursor: 'pointer', border: 'none',
-        top:'553px',position:'absolute',left:'40%'
+        top:'600px',position:'absolute',left:'42%'
       }} onClick={handleSubmit}>
         Log In
       </button>

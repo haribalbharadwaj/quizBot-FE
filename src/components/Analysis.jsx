@@ -50,17 +50,13 @@ const Analysis = () => {
   const [timer, setTimer] = useState(null); // State for managing the timer
   const [timerOption, setTimerOption] = useState('off');
   const [inputVisibilityState, setInputVisibilityState] = useState(false);
-  
+  const [currentQuestionInput, setCurrentQuestionInput] = useState({
+    question: '',
+    options: [],
+    correctAnswerIndex: null,
+});
 
-
-  const navigate = useNavigate();
-  const [error, setError] = useState({
-    quizName: false,
-    qAQuestion:false,
-    pollQuestion:false
-
-})
-
+const [userStats, setUserStats] = useState(null);
 
   // Event handler functions
   const handleAnalysis =()=>{
@@ -79,309 +75,13 @@ const Analysis = () => {
   };
 
   
-  
-  const handleInputsBlock = ()=>{
-    if(clickedButton==='qna'){
-      setIsQABlockVisible(true);
-      setIsPollBlockVisible(false);
-      
-      console.log('type:', clickedButton);
-    }
-    else if(clickedButton==='poll'){
-      setIsPollBlockVisible(true);
-      setIsQABlockVisible(false);
-     
-      console.log('type:', clickedButton);
-    }
-  }
-
-  console.log('Current clickedButton:', clickedButton);
-
-
-  const closePollBlock =()=>{
-    setIsPollBlockVisible(false);
-  }
-
-  const handleDeleteOption = (index) => {
-    const newInputs = [...inputs];
-  newInputs.splice(index, 1);
-  setInputs(newInputs);
-  if (correctAnswerIndex === index) {
-    setCorrectAnswerIndex(null); // Reset correct answer if deleted
-  } else if (correctAnswerIndex > index) {
-    setCorrectAnswerIndex(correctAnswerIndex - 1); // Adjust index if needed
-  }
-};
-
-useEffect(() => {
-  console.log("Input visibility state:", inputVisibilityState);
-}, [inputVisibilityState]);
-
-
-
-const handleSelectCorrectAnswer = (index) => {
-  setCorrectAnswerIndex(index); // Set the selected option as the correct answer
-};
-
-
-const handleInputChange = (index, e, type) => {
-  const updatedInputs = [...inputs];
-  if (type === 'text') {
-    updatedInputs[index].text = e.target.value;
-  } else if (type === 'imageUrl') {
-    updatedInputs[index].imageUrl = e.target.value;
-  }
-  setInputs(updatedInputs);
-};
-
-const handleAddOption = () => {
-  const newInput = {};
-  if (selectedDot === 0) {
-    // Text option selected
-    newInput.text = '';
-  } else if (selectedDot === 1) {
-    // Image option selected
-    newInput.imageUrl = '';
-  } else if (selectedDot === 2) {
-    // Text and Image option selected
-    newInput.text = '';
-    newInput.imageUrl = '';
-  }
-  setInputs([...inputs, newInput]);
-};
-
-
-const handleDotClick = (index) => {
-  setSelectedDot(index); // Update the selected dot state
-
-  // Set up inputs based on the selected dot
-  let newInputs = [];
-  if (index === 0) {
-     newInputs = [{ text: '' },
-      { text: '' },
-      { text: '' },
-      { text: '' }
-     ]  // Text option
-  } else if (index === 1) {
-      newInputs = [{ imageUrl: '' },
-        { imageUrl: '' },
-        { imageUrl: '' },
-        { imageUrl: '' }
-      ]; // Image option
-  } else if (index === 2) {
-      newInputs = [{ text: '', imageUrl: '' },
-        { text: '', imageUrl: '' },
-        { text: '', imageUrl: '' },
-        { text: '', imageUrl: '' }
-      ]; // Text and Image option
-  }
-  setInputs(newInputs);
-};
-
- 
-
-  const handleSaveQuestion = () => {
-    if (!qAQuestion && !pollQuestion) {
-        setError(prevError => ({ ...prevError, qAQuestion: !qAQuestion, pollQuestion: !pollQuestion }));
-        return;
-    }
-
-    const updatedCircles = [...circles];
-
-    let timerValue = timerOption === 'off' ? 0 : timer; 
-      
-
-    if (qAQuestion) {
-      updatedCircles[currentCircleIndex] = {
-          number: currentCircleIndex + 1,
-          questionData: {
-              type: 'QA',  // This sets the question type as 'QA'
-              question: qAQuestion,
-              options: inputs,
-              correctAnswerIndex: correctAnswerIndex,
-              timer: timerValue 
-          }
-      };
-  } else if (pollQuestion) {
-      const pollOptions =  [
-        { text: 'Option 1', value: inputs[0]?.text || '' },
-        { text: 'Option 2', value: inputs[1]?.text || '' },
-        { text: 'Option 3', value: inputs[2]?.text || '' },
-        { text: 'Option 4', value: inputs[3]?.text || '' },
-    ];
-
-    
-    updatedCircles[currentCircleIndex] = {
-      number: currentCircleIndex + 1,
-      questionData: {
-          type: 'Poll',  // This sets the question type as 'Poll'
-          question: pollQuestion,
-          options: pollOptions,
-      }
-  };
-}
-
-//  updatedCircles[currentCircleIndex] = questionData;
-
-  setCircles(updatedCircles);
-  console.log('Question saved:', updatedCircles[currentCircleIndex]);
-  setQAQuestion('');
-  setPollQuestion('');
-  setInputs([]);
-  setCorrectAnswerIndex(null);
-}
-
-
-
-
-
-  const closeQAblock =()=>{
-    setIsQABlockVisible(false);
-  }
-
   const closePublishBlock =()=>{
     setIsPublishedVisible(false);
   }
 
-  const handleQuizName = async () => {
-    const newError = { quizName: !quizName };
-    setError(newError);
-
-    if (Object.values(newError).includes(true)) {
-        console.log("Error exists in the form");
-        return;
-    }
-
-    const quizData = {
-        quizName,
-        questions: circles.map(circle => {
-            const questionType = circle.questionData.type;  // This should match the clickedButton
-            console.log(`Question: ${circle.questionData.question}, Type: ${questionType}`);  // Log each question's type
-            console.log("Question Type:", circle.questionData.type);
-
-            return {
-                questionText: circle.questionData.question,
-                options: circle.questionData.options,
-                correctAnswerIndex: circle.questionData.correctAnswerIndex,
-                questionType: clickedButton.charAt(0).toUpperCase() + clickedButton.slice(1) ,
-                timer: circle.questionData.timer || 0   
-            };
-        })
-    };
-
-    console.log("Quiz Data before sending:", quizData);
-
-    
-
-    try {
-        const backendUrl = process.env.REACT_APP_QUIZBOT_BACKEND_URL;
-        if (!backendUrl) {
-            throw new Error('Backend URL is not defined');
-        }
-
-        const token = localStorage.getItem('token');
-        if (!token) {
-            throw new Error('No token found in localStorage');
-        }
-
-        const response = await axios.post(`${backendUrl}/quiz/createQuiz`, quizData, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-
-        console.log('Response data:', response.data);
-        console.log("Quiz data sent:", quizData);  // Re-log the quizData sent for verification
-
-        const createdQuizId = response.data.quiz._id;
-        if (createdQuizId) {
-            setCreatedQuizId(createdQuizId);
-            console.log('createdQuizId:', createdQuizId);
-            localStorage.setItem('quizId', createdQuizId);
-            console.log('Quiz ID stored in localStorage:', createdQuizId);
-        } else {
-            console.error('Quiz ID not found in response');
-        }
-
-        setIsPublishedVisible(true);
-        console.log('Form submitted successfully', response.data);
-
-        if (clickedButton === 'qna') {
-            setIsQABlockVisible(true);
-            setIsPollBlockVisible(false);
-        } else if (clickedButton === 'poll') {
-            setIsPollBlockVisible(true);
-            setIsQABlockVisible(false);
-        }
-
-        closeCreateQuiz();
-        setError({ quizName: false });
-        setQuizName('');
-        setCircles([{ number: 1, questionData: { question: '', options: [] } }]);
-        setInputs([]);
-        setQAQuestion('');
-        setPollQuestion('');
-        setCorrectAnswerIndex(null);
-
-    } catch (error) {
-        console.error('Error creating quiz', error);
-        if (error.response) {
-            console.error('Response status:', error.response.status);
-            console.error('Response headers:', error.response.headers);
-            setError({ ...error, global: `Failed to create quiz: ${error.response.data.message || 'Please try again.'}` });
-        } else if (error.request) {
-            console.error('Request data:', error.request);
-            setError({ ...error, global: 'No response received from the server. Please try again.' });
-        } else {
-            console.error('Error message:', error.message);
-            setError({ ...error, global: `Failed to create quiz: ${error.message}. Please try again.` });
-        }
-    }
-};
-
-  const createQuiz = () => {
-    setIsCreateQuizkVisible(true);
-};
-
-const closeCreateQuiz = ()=>{
-    setIsCreateQuizkVisible(false);
-}
-
-const addCircle = () => {
-  // Preserve the current circle's question and options before adding a new one
-  const updatedCircles = [...circles];
-  updatedCircles[currentCircleIndex] = {
-    number: circles[currentCircleIndex].number,
-    questionData: {
-      question: pollQuestion,
-      options: inputs,
-      correctAnswerIndex
-    }
-  };
-  
-  // Add the new circle
-  const newCircle = { number: circles.length + 1, questionData: { question: '', options: [] } };
-  setCircles([...updatedCircles, newCircle]);
-  setCurrentCircleIndex(circles.length);  // Update the current circle index
-  setQAQuestion('');  // Clear input boxes
-  setPollQuestion('');
-  setInputs([]);       // Clear options
-  setCorrectAnswerIndex(null); // Clear correct answer selection
-};
-
-const handleCircleClick = (index) => {
-  setCurrentCircleIndex(index);
-  const circle = circles[index];
-  setCurrentCircleIndex(index);
-    setQAQuestion(circle.questionData.question);
-    setPollQuestion(circle.questionData.question);
-    setInputs(circle.questionData.options || []);
-    setCorrectAnswerIndex(circle.questionData.correctAnswerIndex || null);
-  
-};
 
 
+ 
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -410,17 +110,7 @@ const handleCircleClick = (index) => {
     fetchQuizzes();
   }, []);
 
-  
 
-
-  
-  const popupRef = useRef(null);
-  const logoutHandler = () => {
-      // Clear localStorage
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-     navigate('/');
-  };
 
   const handleEditClick = async (quizId) => {
   
@@ -528,21 +218,485 @@ const [newQuestion, setNewQuestion] = useState({
   optionType: 'text', // or 'image', 'both'
 });
 
-const handleDashboard =()=>{
-  navigate('/dashboard')
+
+const navigate = useNavigate();
+const [error, setError] = useState({
+    quizName: false,
+    qAQuestion:false,
+    pollQuestion:false
+
+})
+
+useEffect(() => {
+  const handleScroll = () => {
+    // Calculate the new top position based on the scroll position
+    const newTop = window.scrollY + 100; // Adjust this offset as needed
+    
+    // Ensure the top position doesn't go below 300px
+    setTopPosition(Math.max(newTop, 300));
+  };
+
+  // Add the scroll event listener
+  window.addEventListener('scroll', handleScroll);
+
+  // Cleanup the event listener on component unmount
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
+const handleAddOption = () => {
+  const newInput = {};
+  if (selectedDot === 0) {
+    // Text option selected
+    newInput.text = '';
+  } else if (selectedDot === 1) {
+    // Image option selected
+    newInput.imageUrl = '';
+  } else if (selectedDot === 2) {
+    // Text and Image option selected
+    newInput.text = '';
+    newInput.imageUrl = '';
+  }
+  setInputs([...inputs, newInput]);
+};
+
+
+
+const handleDotClick = (index) => {
+setSelectedDot(index); // Update the selected dot state
+
+// Set up inputs based on the selected dot
+let newInputs = [];
+if (index === 0) {
+   newInputs = [{ text: '' },
+    { text: '' },
+    { text: '' },
+    { text: '' }
+   ]  // Text option
+} else if (index === 1) {
+    newInputs = [{ imageUrl: '' },
+      { imageUrl: '' },
+      { imageUrl: '' },
+      { imageUrl: '' }
+    ]; // Image option
+} else if (index === 2) {
+    newInputs = [{ text: '', imageUrl: '' },
+      { text: '', imageUrl: '' },
+      { text: '', imageUrl: '' },
+      { text: '', imageUrl: '' }
+    ]; // Text and Image option
 }
+setInputs(newInputs);
+};
+
+
+const handleInputsBlock = ()=>{
+  if(clickedButton==='qna'){
+    setIsQABlockVisible(true);
+    setIsPollBlockVisible(false);
+    
+    console.log('type:', clickedButton);
+  }
+  else if(clickedButton==='poll'){
+   // handlePollBlockVisibility();
+    setIsPollBlockVisible(true);
+    setIsQABlockVisible(false);
+    console.log('type:', clickedButton);
+  }
+}
+
+// console.log('Current clickedButton:', clickedButton);
+
+useEffect(() => {
+  console.log("Input visibility state:", inputVisibilityState);
+}, [inputVisibilityState]);
+
+
+
+const closePollBlock =()=>{
+  setIsPollBlockVisible(false);
+}
+
+const handleDeleteOption = (indexToDelete) => {
+  // Delete the input at the specified index
+  setInputs(prevInputs => prevInputs.filter((_, index) => index !== indexToDelete));
+
+  // Optionally update the `options` array if needed
+  // For example, if options should match inputs, update it accordingly
+  //setOptions(prevOptions => prevOptions.filter((_, index) => index !== indexToDelete));
+  
+  // Adjust the correctAnswerIndex if necessary
+  if (correctAnswerIndex === indexToDelete) {
+    setCorrectAnswerIndex(null);
+  } else if (correctAnswerIndex > indexToDelete) {
+    setCorrectAnswerIndex(correctAnswerIndex - 1);
+  }
+};
+
+
+
+
+const handleSelectCorrectAnswer = (index) => {
+setCorrectAnswerIndex(index); // Set the selected option as the correct answer
+};
+
+const handleInputChange = (index, event, type) => {
+const updatedInputs = [...inputs];
+if (type === 'text') {
+  updatedInputs[index].text = event.target.value;
+} else if (type === 'imageUrl') {
+  updatedInputs[index].imageUrl = event.target.value;
+}
+setInputs(updatedInputs);
+
+setCurrentQuestionInput({
+  ...currentQuestionInput,
+  [event.target.name]: event.target.value,
+});
+};
+
+
+
+
+
+
+const popupRef = useRef(null);
+const logoutHandler = () => {
+    // Clear localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+   navigate('/');
+};
+
+const createQuiz = () => {
+   setIsCreateQuizkVisible(true);
+};
+
+const closeCreateQuiz = ()=>{
+    setIsCreateQuizkVisible(false);
+}
+
+const addCircle = () => {
+  const updatedCircles = [...circles];
+  
+  // Only save if the current circle has been filled out, to avoid overwriting data
+  if ((pollQuestion.trim() !== '' || qAQuestion.trim() !== '') || inputs.length > 0) {
+    let timerValue = timerOption === 'off' ? 0 : timer; 
+      // Determine the question type and save accordingly
+      if (qAQuestion.trim() !== '') {
+          updatedCircles[currentCircleIndex] = {
+              number: circles[currentCircleIndex].number || currentCircleIndex + 1,
+              questionData: {
+                  type: 'Qna',  // This sets the question type as 'QA
+                  question: qAQuestion,
+                  options: inputs,
+                  correctAnswerIndex: correctAnswerIndex || null,
+                  timer: timerValue 
+              }
+          };
+      } else if (pollQuestion.trim() !== '') {
+          const pollOptions =  [
+              { text: 'Option 1', value: inputs[0]?.text || '' },
+              { text: 'Option 2', value: inputs[1]?.text || '' },
+              { text: 'Option 3', value: inputs[2]?.text || '' },
+              { text: 'Option 4', value: inputs[3]?.text || '' },
+          ];
+
+          updatedCircles[currentCircleIndex] = {
+              number: circles[currentCircleIndex].number || currentCircleIndex + 1,
+              questionData: {
+                  type: 'Poll',  // This sets the question type as 'Poll'
+                  question: pollQuestion,
+                  options: inputs,
+              }
+          };
+      }
+  }
+
+  // Add a new circle with an incremented number
+  const newCircle = { number: circles.length + 1, questionData: { question: '', options: [] } };
+  setCircles([...updatedCircles, newCircle]);
+
+  // Update state for the new circle
+  setCurrentCircleIndex(circles.length);
+  setQAQuestion('');  // Clear QA question input
+  setPollQuestion('');  // Clear poll question input
+  setInputs([]);  // Clear options
+  setCorrectAnswerIndex(null);  // Clear correct answer selection
+};
+
+
+
+
+const handleCircleClick = (index) => {
+  const circle = circles[index];
+  setCurrentCircleIndex(index);
+
+  // Populate input fields with the selected circle's data
+  setQAQuestion(circle.questionData.question || '');
+  setPollQuestion(circle.questionData.question || '');
+  setInputs(circle.questionData.options || []);
+  setCorrectAnswerIndex(circle.questionData.correctAnswerIndex || null);
+};
+
+
+
+
+
+
+
+const handleSaveQuestion = () => {
+if (!qAQuestion && !pollQuestion) {
+    setError(prevError => ({ ...prevError, qAQuestion: !qAQuestion, pollQuestion: !pollQuestion }));
+    return;
+}
+
+const updatedCircles = [...circles];
+
+let timerValue = timerOption === 'off' ? 0 : timer; 
+
+if (qAQuestion) {
+    updatedCircles[currentCircleIndex] = {
+        number: currentCircleIndex + 1,
+        questionData: {
+            type: 'Qna',
+            question: qAQuestion,
+            options: inputs,
+            correctAnswerIndex: correctAnswerIndex,
+            timer: timerValue // Ensure timer is saved here
+        }
+    };
+} else if (pollQuestion) {
+    const pollOptions = inputs.map((input, index) => ({
+        text: `Option ${index + 1}`,
+        value: input.text || ''
+    }));
+
+    updatedCircles[currentCircleIndex] = {
+        number: currentCircleIndex + 1,
+        questionData: {
+            type: 'Poll',
+            question: pollQuestion,
+            options: pollOptions,
+            timer: 0 // Poll questions don't have a timer, or set to 0
+        }
+    };
+}
+
+setCircles(updatedCircles); // Set updated state
+console.log('Question saved:', updatedCircles[currentCircleIndex]);
+
+// Reset fields
+setQAQuestion('');
+setPollQuestion('');
+setInputs([]);
+setCorrectAnswerIndex(null);
+}
+
+
+
+const closeQAblock =()=>{
+  setIsQABlockVisible(false);
+  setTimer(null);
+}
+
+/*const closePublishBlock =()=>{
+  setIsPublishedVisible(false);
+}*/
 
 const handleTimerOptionChange = (option) => {
   setTimerOption(option);
   if (option === '5secs') {
-    setTimer(5);
+      setTimer(5);
   } else if (option === '10secs') {
-    setTimer(10);
+      setTimer(10);
+  } else if (option === 'off') {
+      setTimer(0);
   } else {
-    setTimer(null);
+      setTimer(null);
   }
 };
 
+
+
+// Validation for PollQuestion
+const validatePollQuestion = (pollQuestion) => {
+if (!pollQuestion || pollQuestion.trim() === '') {
+  return true; // Error exists if pollQuestion is empty or just whitespace
+}
+// Add more validation logic here if needed
+return false; // No error
+};
+
+// Validation for QAQuestion
+const validateQAQuestion = (qAQuestion) => {
+if (!qAQuestion || qAQuestion.trim() === '') {
+  return true; // Error exists if qaQuestion is empty or just whitespace
+}
+// Add more validation logic here if needed
+return false; // No error
+};
+
+const handleQuizName = async () => {
+
+const updatedCircles = [...circles];
+if ((pollQuestion.trim() !== '' || qAQuestion.trim() !== '') || inputs.length > 0) {
+
+
+let timerValue = timerOption === 'off' ? 0 : timer; 
+console.log('Timer value:', timerValue); // Add this line to debug timer value
+updatedCircles[currentCircleIndex] = {
+    number: circles[currentCircleIndex]?.number || currentCircleIndex + 1,
+    questionData: {
+        question: clickedButton === 'poll' ? pollQuestion : qAQuestion,
+        options: inputs,
+        correctAnswerIndex,
+        timer: clickedButton === 'qna' ? timerValue : undefined 
+    }
+};
+}
+// Set circles state
+setCircles(updatedCircles);
+
+// Validation
+let newError = { quizName: !quizName };
+
+if (clickedButton === 'poll') {
+  newError = { ...newError, pollQuestion: validatePollQuestion(pollQuestion) };
+} else if (clickedButton === 'qna') {
+  newError = { ...newError, qAQuestion: validateQAQuestion(qAQuestion) };
+}
+
+setError(newError);
+
+if (Object.values(newError).includes(true)) {
+  console.log("Error exists in the form");
+  return;
+}
+
+// Filter out any incomplete or empty questions
+const validQuestions = updatedCircles.filter(circle => {
+  const { questionData } = circle;
+  return questionData.question.trim() !== '' && questionData.options.length > 0;
+}).map(circle => 
+{ return {
+      questionText: circle.questionData.question,
+      options: circle.questionData.options,
+      correctAnswerIndex: circle.questionData.correctAnswerIndex,
+      questionType: clickedButton.charAt(0).toUpperCase() + clickedButton.slice(1),
+      timer: circle.questionData.timer  
+  };
+});
+
+//console.log('Timer Value on Save:', questionData.timer);
+//console.log('Timer Value on Submit:', circle.questionData.timer);
+
+
+const quizData = {
+  quizName,
+  questions: validQuestions
+};
+
+console.log("Quiz Data before sending:", quizData);
+
+try {
+  const backendUrl = process.env.REACT_APP_QUIZBOT_BACKEND_URL;
+  if (!backendUrl) {
+      throw new Error('Backend URL is not defined');
+  }
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+      throw new Error('No token found in localStorage');
+  }
+
+  const response = await axios.post(`${backendUrl}/quiz/createQuiz`, quizData, {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+      },
+  });
+
+  console.log('Response data:', response.data);
+  console.log("Quiz data sent:", quizData);
+
+  const createdQuizId = response.data.quiz._id;
+  if (createdQuizId) {
+      setCreatedQuizId(createdQuizId);
+      console.log('createdQuizId:', createdQuizId);
+      localStorage.setItem('quizId', createdQuizId);
+      console.log('Quiz ID stored in localStorage:', createdQuizId);
+  } else {
+      console.error('Quiz ID not found in response');
+  }
+
+  setIsPublishedVisible(true);
+  console.log('Form submitted successfully', response.data);
+
+  if (clickedButton === 'qna') {
+      setIsQABlockVisible(true);
+      setIsPollBlockVisible(false);
+  } else if (clickedButton === 'poll') {
+      setIsPollBlockVisible(true);
+      setIsQABlockVisible(false);
+  }
+
+  closeCreateQuiz();
+  setError({ quizName: false });
+  setQuizName('');
+  setCircles([{ number: 1, questionData: { question: '', options: [] } }]);
+  setInputs([]);
+  setQAQuestion('');
+  setPollQuestion('');
+  setCorrectAnswerIndex(null);
+
+} catch (error) {
+  console.error('Error creating quiz', error);
+  if (error.response) {
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
+      setError({ ...error, global: `Failed to create quiz: ${error.response.data.message || 'Please try again.'}` });
+  } else if (error.request) {
+      console.error('Request data:', error.request);
+      setError({ ...error, global: 'No response received from the server. Please try again.' });
+  } else {
+      console.error('Error message:', error.message);
+      setError({ ...error, global: `Failed to create quiz: ${error.message}. Please try again.` });
+  }
+}
+};
+
+
+
+
+
+//console.log('Clicked Button:', clickedButton);
+//console.log('QA Question:', qAQuestion);
+//console.log('Poll Question:', pollQuestion);
+
+
+
+  /*   const handleCopyLink = () => {
+      const quizLink = `${window.location.origin}/quiz/${createdQuizId}`;
+      navigator.clipboard.writeText(quizLink)
+        .then(() => {
+          alert('Quiz link copied to clipboard!');
+        })
+        .catch((err) => {
+          console.error('Failed to copy the link: ', err);
+        });
+    };*/
+
+/*    const handleAnalysis =()=>{
+      navigate('/quizzes');
+    };
+*/
+
+
+
+ 
+ const handleDashboard=()=>{
+  navigate('/dashboard')
+}
 
 
 

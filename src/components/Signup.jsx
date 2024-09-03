@@ -119,7 +119,7 @@ function Signup() {
         flexDirection:'column'
       }}>
 
-<div style={{width:'187px',height:'100px',top:'136px',left:'650px',position:'absolute'}}>
+<div style={{width:'187px',height:'100px',top:'200px',left:'850px',position:'absolute'}}>
             <span style={{fontFamily: 'Jomhuria,sans-serif',fontSize: '100px',fontWeight:'400',lineHeight:'100px',textAlign:'left',
               color:'#474444'
             }}>
@@ -260,7 +260,7 @@ function Signup() {
         borderRadius: '10px',
         border: error.confirmPassword ? '1px solid #D60000' : '1px solid #F4F4F4',
         background: '#F4F4F4',
-        color: '#474444',
+        color: error.confirmPassword ? 'red' : 'initial',
         fontFamily: 'Poppins, sans-serif',
         fontSize: '12px',
         fontWeight: '500',
@@ -283,7 +283,7 @@ function Signup() {
       <button type="submit" style={{
         width: '274px', height: '40px', borderRadius: '8px', background: '#A0C4FF', color: '#FFFFFF',
         fontFamily: 'Poppins, sans-serif', fontSize: '16px', fontWeight: '600', cursor: 'pointer', border: 'none',
-        top:'645px',position:'absolute',left:'550px'
+        top:'700px',position:'absolute',left:'800px'
       }}onClick={handleSubmit}>
         Sign Up
       </button>
