@@ -30,6 +30,8 @@ const QuizPage = () => {
           throw new Error('No token found in localStorage');
         }
 
+        console.log('QuizId:',quizId);
+
         const response = await axios.get(`${backendUrl}/quiz/quiz/${quizId}`, {
           headers: {
             'Content-Type': 'application/json',

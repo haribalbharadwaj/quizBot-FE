@@ -731,7 +731,7 @@ try {
         <div style={{width:'929px',height:'360px',top:'187px',left:'79px',position:'absolute'}}>
 
           {quizzes.length === 0 ? (
-            <p>Timeout, please Login</p>
+            <> </>
             ) : (
 
             <div >
