@@ -131,7 +131,7 @@ const handleRegister=()=>{
         flexDirection:'column'
       }}>
 
-<div style={{width:'187px',height:'100px',top:'180px',left:'850px',position:'absolute'}}>
+<div style={{width:'187px',height:'100px',top:'100px',left:'650px',position:'absolute'}}>
             <span style={{fontFamily: 'Jomhuria,sans-serif',fontSize: '100px',fontWeight:'400',lineHeight:'100px',textAlign:'left',
               color:'#474444'
             }}>
