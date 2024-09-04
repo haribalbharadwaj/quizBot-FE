@@ -515,7 +515,7 @@ const handleCircleClick = (index) => {
           </div>
       </div>
 
-      <div className="questions" style={{overflowY:'scroll'}}>
+      <div className="questions" style={{overflowY:'scroll',maxHeight: '651px', width: '828px', margin: '0 auto'}}>
         {quiz.questions.map((question, qIndex) => (
           <div key={question._id} className="question-section" style={{width:'828px',height:'159px',top:'100px',left:'88px',position:'relative',display:'flex',flexDirection:'column',
             marginTop:'80px'
