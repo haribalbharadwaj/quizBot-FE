@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Edit from "../assets/Edit.png";
 import Share from "../assets/Share.png";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Analysis = () => {
   // State and ref variables
@@ -67,12 +70,18 @@ const [userStats, setUserStats] = useState(null);
     const quizLink = `${window.location.origin}/quiz/${createdQuizId}`;
     navigator.clipboard.writeText(quizLink)
       .then(() => {
-        alert('Quiz link copied to clipboard!');
+        toast.success('Link copied to clipboard!', {
+          position: 'top-right',
+        });
       })
       .catch((err) => {
+        toast.error('Failed to copy the link!', {
+          position: 'bottom-right',
+        });
         console.error('Failed to copy the link: ', err);
       });
   };
+  
 
   
   const closePublishBlock =()=>{
@@ -1415,6 +1424,8 @@ try {
                   <button style={{width:'279px',height:'46.14px',top:'360px',left:'308px',borderRadius:'10px',background:'#60B84B',color:'#FFFFFF',position:'absolute',
                       fontFamily:'Poppins,sans-serif',fontSize: '21px',fontWeight: '600',lineHeight:'31.5px',textAlign:'center',border: 'none', outline: 'none'
                     }} onClick={handleCopyLink}>Share</button>
+                    <ToastContainer 
+                      style={{top:'27px',position:'absolute'}}/>
                  </div>
               </div>
             )}

@@ -5,6 +5,10 @@ import Hz from '../assets/Hz.png'
 import Delete from '../assets/delete.png'
 import { useNavigate } from "react-router-dom";
 import HzLine from '../assets/HzLine.png';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const QuestionAnalysisPage = () => {
   const { id: quizId } = useParams(); // Extract quizId from route params
@@ -84,7 +88,7 @@ const [quizName, setQuizName] = useState('');
    navigate('/');
 };
 
-// Event handler functions
+// Event handler function
 const handleAnalysis =()=>{
   navigate('/quizzes');
 };
@@ -93,13 +97,17 @@ const handleCopyLink = () => {
   const quizLink = `${window.location.origin}/quiz/${createdQuizId}`;
   navigator.clipboard.writeText(quizLink)
     .then(() => {
-      alert('Quiz link copied to clipboard!');
+      toast.success('Link copied to clipboard!', {
+        position: 'top-right',
+      });
     })
     .catch((err) => {
+      toast.error('Failed to copy the link!', {
+        position: 'bottom-right',
+      });
       console.error('Failed to copy the link: ', err);
     });
 };
-
 
 
 const handleInputsBlock = ()=>{
@@ -1181,6 +1189,8 @@ const handleCircleClick = (index) => {
                   <button style={{width:'279px',height:'46.14px',top:'360px',left:'308px',borderRadius:'10px',background:'#60B84B',color:'#FFFFFF',position:'absolute',
                       fontFamily:'Poppins,sans-serif',fontSize: '21px',fontWeight: '600',lineHeight:'31.5px',textAlign:'center',border: 'none', outline: 'none'
                     }} onClick={handleCopyLink}>Share</button>
+                    <ToastContainer 
+                      style={{top:'27px',position:'absolute'}}/>
                  </div>
               </div>
             )}

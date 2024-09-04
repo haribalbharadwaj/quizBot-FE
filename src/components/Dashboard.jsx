@@ -590,14 +590,7 @@ const handleQuizName = async () => {
           });
       };
       
-      
-
-     
-      
-
-   
-      
-    
+  
     return(
         <div style={{width:'1280px',height:'832px',margin: '0 auto',display:'flex',flexDirection:'row'}}>
             <div style={{width:'193px',height:'832px',background:'#FFFFFF',boxShadow:'0px 4px 4px 0px #00000040'}}>
