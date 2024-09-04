@@ -283,7 +283,7 @@ function Signup() {
       <button type="submit" style={{
         width: '274px', height: '40px', borderRadius: '8px', background: '#A0C4FF', color: '#FFFFFF',
         fontFamily: 'Poppins, sans-serif', fontSize: '16px', fontWeight: '600', cursor: 'pointer', border: 'none',
-        top:'700px',position:'absolute',left:'800px'
+        top:'600px',position:'absolute',left:'635px'
       }}onClick={handleSubmit}>
         Sign Up
       </button>
