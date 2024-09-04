@@ -25,17 +25,13 @@ const QuizPage = () => {
           throw new Error('Backend URL is not defined');
         }
 
-        const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('No token found in localStorage');
-        }
+       
 
         console.log('QuizId:',quizId);
 
         const response = await axios.get(`${backendUrl}/quiz/quiz/${quizId}`, {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
           },
         });
         setQuiz(response.data);
