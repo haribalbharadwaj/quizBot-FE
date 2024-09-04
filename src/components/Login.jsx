@@ -139,7 +139,7 @@ const handleRegister=()=>{
             </span>
           </div>
           <div style={{width: '700px',height:'37px',top:'200px',left:'35%',display:'flex',flexDirection:'row',position:'absolute',
-            gap:'100px'
+            gap:'130px'
           }}>
             <button style={{width:'217px',height:'37px',top:'267px',left:'422px',borderRadius:'10px',background:'#FFFFFF',
              color:'#474444',fontFamily:'Poppins,sans-serif',borderColor:'#FFFFFF',
