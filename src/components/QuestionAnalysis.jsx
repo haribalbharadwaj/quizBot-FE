@@ -559,10 +559,8 @@ const handleCircleClick = (index) => {
                   borderRadius:'5px',background:'#FFFFFF',color:'#474444',gap:'20px',alignItems:'center'}}>
                     <span  style={{marginLeft:'20px',fontFamily: 'Poppins, sans-serif', fontSize: '30px', fontWeight: '600', lineHeight: '45px', textAlign: 'center',}}>{option.selectedCount}</span>
                     <span style={{fontFamily: 'Poppins, sans-serif', fontSize: '14px', fontWeight: '600', lineHeight: '21px', textAlign: 'center',}}>{option.text}</span>
-                    {option.imageUrl &&(<img src={option.imageUrl}   style={{
-          width: '50px',  // Adjust the width as needed
-          height: '50px', // Adjust the height as needed
-          objectFit: 'cover', // Ensures the image covers the area without distortion
+                    {option.imageUrl &&(<img src={option.imageUrl}   style={{width: '50px',height: '50px', // Adjust the height as needed
+        // Ensures the image covers the area without distortion
           borderRadius: '5px' // Optional: Adds rounded corners to the image
         }}/>)}
                   </div>
