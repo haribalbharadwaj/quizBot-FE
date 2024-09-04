@@ -602,7 +602,7 @@ const handleQuizName = async () => {
         <div style={{width:'1280px',height:'832px',margin: '0 auto',display:'flex',flexDirection:'row'}}>
             <div style={{width:'193px',height:'832px',background:'#FFFFFF',boxShadow:'0px 4px 4px 0px #00000040'}}>
               <span style={{fontFamily: 'Jomhuria,sans-serif',fontSize: '70px',fontWeight:'400',lineHeight:'100px',textAlign:'left',
-                color:'#474444',left:'80px',position:'absolute'
+                color:'#474444',left:'100px',position:'absolute'
               }}>QUIZZIE</span>
                 
               <div style={{display:'flex',flexDirection:'column',gap:'50px',top:'309px',position:'absolute',left:'90px'            }}>
