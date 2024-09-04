@@ -611,8 +611,8 @@ const handleQuizName = async () => {
                 <span onClick={createQuiz} style={{fontFamily:'Poppins,sans-serif',fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center',color:'#474444'}}>Create Quiz</span>   
               </div>
 
-              <img src={Hz} style={{top:'763px',left:'90px',position:'absolute'}}/>
-              <span onClick={logoutHandler} style={{width:'83px',height:'30px',top:'786px',left:'110px',fontFamily:'Poppins,sans-serif',fontSize:'20px',fontWeight:'700',lineHeight:'30px',textAlign:'center',position:'absolute'}}>LOGOUT</span>
+              <img src={Hz} style={{top:'763px',left:'150px',position:'absolute'}}/>
+              <span onClick={logoutHandler} style={{width:'83px',height:'30px',top:'786px',left:'170px',fontFamily:'Poppins,sans-serif',fontSize:'20px',fontWeight:'700',lineHeight:'30px',textAlign:'center',position:'absolute'}}>LOGOUT</span>
 
             </div>
             <div style={{width:'1087px',height:'832px',left:'193px',background:'#EDEDED'}}>
