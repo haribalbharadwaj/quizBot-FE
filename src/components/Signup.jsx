@@ -119,7 +119,7 @@ function Signup() {
         flexDirection:'column'
       }}>
 
-<div style={{width:'187px',height:'100px',top:'41px',left:'476px',position:'absolute'}}>
+<div style={{width:'187px',height:'100px',top:'41px',left:'600px',position:'absolute'}}>
             <span style={{fontFamily: 'Jomhuria,sans-serif',fontSize: '100px',fontWeight:'400',lineHeight:'100px',textAlign:'left',
               color:'#474444'
             }}>
