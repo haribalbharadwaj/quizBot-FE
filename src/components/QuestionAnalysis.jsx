@@ -517,7 +517,7 @@ const handleCircleClick = (index) => {
 
       <div className="questions">
         {quiz.questions.map((question, qIndex) => (
-          <div key={question._id} className="question-section" style={{width:'828px',height:'159px',top:'150px',left:'88px',position:'relative',display:'flex',flexDirection:'column',
+          <div key={question._id} className="question-section" style={{width:'828px',height:'159px',top:'120px',left:'88px',position:'relative',display:'flex',flexDirection:'column',
             marginTop:'80px'
            }}>
             <h2 style={{fontFamily: 'Poppins, sans-serif', fontSize: '30px', fontWeight: '500', lineHeight: '45px', textAlign: 'left',}}>Question {qIndex + 1}: {question.questionText}</h2>
@@ -539,7 +539,7 @@ const handleCircleClick = (index) => {
                 </div>
               </div>
               <div>
-                <img src={HzLine} style={{margin:'10px',left:'-50px',position:'absolute'}}/>
+                <img src={HzLine} style={{margin:'20px',left:'-50px',position:'absolute'}}/>
               </div>
               
               </div>
