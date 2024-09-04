@@ -624,7 +624,9 @@ const handleQuizName = async () => {
                     }}>
                       <div style={{display:'flex',flexDirection:'column',width:'295px',height:'145px',borderRadius:'10px',background:'#FFFFFF',textAlign:'left'}}>
                         <div style={{display:'flex',flexDirection:'row',gap:'20px'}}>
-                          <span style={{marginLeft:'30px',fontFamily:'Poppins,sans-serif',fontSize: '60px',fontWeight: '600',lineHeight:'90px',textAlign:'left',color:'#FF5D01'}}>{userStats.quizzesCreated}</span>
+                          <span style={{marginLeft:'30px',fontFamily:'Poppins,sans-serif',fontSize: '60px',fontWeight: '600',lineHeight:'90px',textAlign:'left',color:'#FF5D01'}}>{userStats.quizzesCreated >= 1000 
+        ? (userStats.quizzesCreated / 1000).toFixed(1) + 'k' 
+        : userStats.quizzesCreated}</span>
                           <span style={{marginTop:'30px',fontFamily:'Poppins,sans-serif',fontSize: '30px',fontWeight: '500',lineHeight:'45px',textAlign:'left',color:'#FF5D01'}}>Quiz</span>
                         </div>
                         <span style={{marginLeft:'30px',fontFamily:'Poppins,sans-serif',fontSize: '30px',fontWeight: '500',lineHeight:'45px',textAlign:'left',color:'#FF5D01'}}>Created</span>
