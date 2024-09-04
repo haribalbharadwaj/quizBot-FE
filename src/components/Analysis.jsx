@@ -713,7 +713,7 @@ try {
     <div style={{ width: '1280px', height: '832px', margin: '0 auto', display: 'flex', flexDirection: 'row' }}>
       {/* Dashboard Sidebar */}
       <div style={{ width: '193px', height: '832px', background: '#FFFFFF', boxShadow: '0px 4px 4px 0px #00000040',left:"0px",position:'absolute' }}>
-        <span style={{ fontFamily: 'Jomhuria, sans-serif', fontSize: '70px', fontWeight: '400', lineHeight: '100px', textAlign: 'left', color: '#474444' }}>
+        <span style={{ fontFamily: 'Jomhuria, sans-serif', fontSize: '70px', fontWeight: '400', lineHeight: '100px', textAlign: 'left', color: '#474444',left:'150px',position:'absolute' }}>
           QUIZZIE
         </span>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '50px', top: '309px', position: 'absolute', left: '36px' }}>
