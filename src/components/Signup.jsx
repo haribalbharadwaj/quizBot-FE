@@ -126,7 +126,7 @@ function Signup() {
             QUIZZIE
             </span>
           </div>
-          <div style={{width: '417px',height:'37px',top:'267px',left:'50%',display:'flex',flexDirection:'row'}}>
+          <div style={{width: '417px',height:'37px',top:'267px',left:'50%',display:'flex',flexDirection:'row',gap:'50px'}}>
             <span style={{width:'217px',height:'37px',top:'267px',left:'422px',borderRadius:'10px',background:'#FFFFFF',
               boxShadow: '0px 0px 50px 0px #0019FF3D',color:'#474444',fontFamily:'Poppins,sans-serif',borderColor:'#FFFFFF',
               fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center'              
