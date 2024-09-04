@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Signup() {
+function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -240,4 +240,4 @@ const handleRegister=()=>{
   );
 }
 
-export default Signup;
+export default Login;
