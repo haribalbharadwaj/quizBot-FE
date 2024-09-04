@@ -138,7 +138,9 @@ const handleRegister=()=>{
             QUIZZIE
             </span>
           </div>
-          <div style={{width: '417px',height:'37px',top:'200px',left:'40%',display:'flex',flexDirection:'row',position:'absolute'}}>
+          <div style={{width: '417px',height:'37px',top:'200px',left:'40%',display:'flex',flexDirection:'row',position:'absolute',
+            gap:'30px'
+          }}>
             <button style={{width:'217px',height:'37px',top:'267px',left:'422px',borderRadius:'10px',background:'#FFFFFF',
              color:'#474444',fontFamily:'Poppins,sans-serif',borderColor:'#FFFFFF',
               fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center'              
