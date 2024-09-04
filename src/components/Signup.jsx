@@ -133,7 +133,7 @@ function Signup() {
             }}>Sign Up</span>
 
             <span style={{width:'217px',height:'37px',top:'267px',left:'619px',borderRadius:'10px',background:'#FFFFFF',
-              boxShadow: '0px 0px 50px 0px #0019FF3D',color:'#474444',fontFamily:'Poppins,sans-serif',borderColor:'#FFFFFF',
+              color:'#474444',fontFamily:'Poppins,sans-serif',borderColor:'#FFFFFF',
               fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center'              
             }} onClick={handleLogin}>Log In</span>
 
