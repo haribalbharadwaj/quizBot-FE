@@ -119,7 +119,7 @@ function Signup() {
         flexDirection:'column'
       }}>
 
-<div style={{width:'187px',height:'100px',top:'200px',left:'850px',position:'absolute'}}>
+<div style={{width:'187px',height:'100px',top:'41px',left:'476px',position:'absolute'}}>
             <span style={{fontFamily: 'Jomhuria,sans-serif',fontSize: '100px',fontWeight:'400',lineHeight:'100px',textAlign:'left',
               color:'#474444'
             }}>
@@ -150,7 +150,7 @@ function Signup() {
         fontWeight: '600',
         textAlign: 'right',
         marginRight: '10px',
-        marginTop: '0' // Ensure it's at the top of the container
+        marginTop: '0' // Ensure it's at the top of the c
       }}>Name</p>
       <input style={{
         width:'388px',
@@ -291,8 +291,10 @@ function Signup() {
       {error.global && <p style={{ color: 'red' }}>{error.global}</p>}
     </div>
 
+
       </div>
     </div>
+    
   );
 }
 
