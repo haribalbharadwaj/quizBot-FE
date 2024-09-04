@@ -263,13 +263,22 @@ const QuizPage = () => {
         transition: 'background 0.3s',
       }}
     >
-     {option.imageUrl ? (
+     {option.imageUrl && (
               <img src={option.imageUrl} alt={`Option ${index + 1}`} width="100" height="100"style={{ display: 'block', margin: 'auto' }}
                 onError={(e) => {e.target.src = 'fallback_image_url';}}
               />
-              ) : option.text ? (
-              option.text
-            ) : null}
+              ) }
+                {option.text && (
+      <span style={{
+        fontFamily: 'Poppins, sans-serif',
+        fontSize: '14px',
+        fontWeight: '600',
+        lineHeight: '21px',
+        textAlign: 'center',
+      }}>
+        {option.text}
+      </span>
+    )}
     </div>
   ))}
 </div>
