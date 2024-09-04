@@ -539,7 +539,7 @@ const handleCircleClick = (index) => {
                 </div>
               </div>
               <div>
-                <img src={HzLine} style={{marginTop:'50px',left:'-50px',position:'absolute'}}/>
+                <img src={HzLine} style={{left:'-50px',position:'absolute'}}/>
               </div>
               
               </div>
