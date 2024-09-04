@@ -227,7 +227,7 @@ const handleRegister=()=>{
       <button type="submit" style={{
         width: '274px', height: '40px', borderRadius: '8px', background: '#A0C4FF', color: '#474444',
         fontFamily: 'Poppins, sans-serif', fontSize: '16px', fontWeight: '600', cursor: 'pointer', border: 'none',
-        top:'400px',position:'absolute',left:'42%'
+        top:'450px',position:'absolute',left:'42%'
       }} onClick={handleSubmit}>
         Log In
       </button>
