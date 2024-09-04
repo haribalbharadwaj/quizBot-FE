@@ -519,7 +519,7 @@ const handleCircleClick = (index) => {
             color:'#FF5D01',gap:'0px',alignItems:'start'
           }}>
             <span>Created on:{`${new Date(quiz.createdDate).getDate()} ${new Date(quiz.createdDate).toLocaleString('en-US', { month: 'short' })}, ${new Date(quiz.createdDate).getFullYear()}`} </span>
-            <span>Total Impressions: {quiz.questions.reduce((acc, q) => acc + q.totalImpressions, 0)}</span>
+            <span>Impressions: {quiz.questions.reduce((acc, q) => acc + q.totalImpressions, 0)}</span>
           </div>
       </div>
 
@@ -560,17 +560,8 @@ const handleCircleClick = (index) => {
                     <span  style={{marginLeft:'20px',fontFamily: 'Poppins, sans-serif', fontSize: '30px', fontWeight: '600', lineHeight: '45px', textAlign: 'center',}}>{option.selectedCount}</span>
                     <span style={{fontFamily: 'Poppins, sans-serif', fontSize: '14px', fontWeight: '600', lineHeight: '21px', textAlign: 'center',}}>{option.text}</span>
                     {option.imageUrl && (
-    <img 
-      src={option.imageUrl} 
-      alt={`Option ${option.text}`} 
-      style={{
-        width: '50px',
-        height: '50px',
-        objectFit: 'cover',
-        borderRadius: '5px',
-      }} 
-    />
-  )}
+                      <img src={option.imageUrl}  alt={`Option ${option.text}`}  style={{width: '60px',height: '60px',objectFit: 'cover',borderRadius: '5px',}} />
+                      )}
                   </div>
                 ))}
               </div>
