@@ -605,7 +605,7 @@ const handleQuizName = async () => {
                 color:'#474444',left:'150px',position:'absolute'
               }}>QUIZZIE</span>
                 
-              <div style={{display:'flex',flexDirection:'column',gap:'50px',top:'309px',position:'absolute',left:'90px'            }}>
+              <div style={{display:'flex',flexDirection:'column',gap:'50px',top:'309px',position:'absolute',left:'150px'            }}>
                 <span style={{fontFamily:'Poppins,sans-serif',fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center',color:'#474444'}}>Dashboard</span>
                 <span onClick={handleAnalysis} style={{fontFamily:'Poppins,sans-serif',fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center',color:'#474444'}}>Analytics</span>
                 <span onClick={createQuiz} style={{fontFamily:'Poppins,sans-serif',fontSize:'20px',fontWeight:'600',lineHeight:'30px',textAlign:'center',color:'#474444'}}>Create Quiz</span>   
