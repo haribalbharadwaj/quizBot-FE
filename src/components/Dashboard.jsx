@@ -23,8 +23,6 @@ function Dashboard (){
     const [qAQuestion,setQAQuestion]=useState('');
     const [pollQuestion,setPollQuestion] = useState('');
     const [selectedDot, setSelectedDot] = useState(0);
-    const [option, setOption] = useState([{ text: '' }]);
-    const [inputFields, setInputFields] = useState([]);
     const [inputs, setInputs] = useState([
       { text: '' },
   { text: '' },
@@ -41,18 +39,13 @@ function Dashboard (){
   const [topPosition, setTopPosition] = useState(300);
   const [isPublishedVisible,setIsPublishedVisible] = useState(false);
   const [createdQuizId, setCreatedQuizId] = useState(null);
-  const [editQuizType, setEditQuizType] = useState('');
   const [timer, setTimer] = useState(null); // State for managing the timer
   const [timerOption, setTimerOption] = useState('off');
   const [quizzes , setQuizzes]= useState([]);
   const [userStats, setUserStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [quizViews,setQuizViews]= useState('');
   const [totalImpressions, setTotalImpressions] = useState(0);
   const [inputVisibilityState, setInputVisibilityState] = useState(false);
-  const [currentInputs, setCurrentInputs] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState('');
-  const [unsavedQuestion, setUnsavedQuestion] = useState(null);
   const [currentQuestionInput, setCurrentQuestionInput] = useState({
     question: '',
     options: [],
@@ -254,7 +247,12 @@ function Dashboard (){
       // Update state for the new circle
       setCurrentCircleIndex(circles.length);
       setQAQuestion('');  // Clear QA question input
-      setInputs([]);  // Clear options
+      setInputs([
+        { text: '' },
+    { text: '' },
+    { text: '' },
+    { text: '' }
+      ]);  // Clear options
       setCorrectAnswerIndex(null);  // Clear correct answer selection
   };
   

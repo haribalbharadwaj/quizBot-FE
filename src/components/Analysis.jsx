@@ -4,13 +4,14 @@ import Hz from '../assets/Hz.png'
 import Delete from '../assets/delete.png'
 import axios from 'axios';
 import { useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Edit from "../assets/Edit.png";
 import Share from "../assets/Share.png";
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import QuestionAnalysis from './QuestionAnalysis';
 
 const Analysis = () => {
   // State and ref variables
@@ -60,10 +61,19 @@ const Analysis = () => {
 });
 
 const [userStats, setUserStats] = useState(null);
+const [selectedQuizId, setSelectedQuizId] = useState(null);
+const [isAnalysisVisible, setIsAnalysisVisible] = useState(false);
+
+
+const location = useLocation();
+
+// Extract quizId from the URL if present
+const quizId = location.pathname.split('/').pop();
 
   // Event handler functions
   const handleAnalysis =()=>{
     navigate('/quizzes');
+    setSelectedQuizId(null);
   };
 
   const handleCopyLink = () => {
@@ -429,7 +439,12 @@ const addCircle = () => {
   setCurrentCircleIndex(circles.length);
   setQAQuestion('');  // Clear QA question input
   setPollQuestion('');  // Clear poll question input
-  setInputs([]);  // Clear options
+  setInputs([
+    { text: '' },
+{ text: '' },
+{ text: '' },
+{ text: '' }
+  ]);  // Clear options
   setCorrectAnswerIndex(null);  // Clear correct answer selection
 };
 
@@ -707,6 +722,16 @@ try {
   navigate('/dashboard')
 }
 
+const handleLinkClick = (quizId) => {
+  if (selectedQuizId === quizId) {
+    // If the clicked quiz is already selected, toggle visibility
+    setIsAnalysisVisible(!isAnalysisVisible);
+  } else {
+    // Otherwise, show the analysis for the new quiz
+    setSelectedQuizId(quizId);
+    setIsAnalysisVisible(true);
+  }
+};
 
 
   return (
@@ -782,7 +807,7 @@ try {
                     return totalImpressions > 1000 ? `${(totalImpressions / 1000).toFixed(1)}k`: totalImpressions;})()}</p>
 
               
-                  <Link to={`/question-analysis/${quiz._id}`} style={{ width:'200px',color: '#000000', textDecoration: 'underline', fontFamily:'Poppins,sans-serif',fontSize: '16px',fontWeight: '600',lineHeight:'0px',textAlign:'center',
+                  <Link   onClick={() => handleLinkClick(quiz._id)}  style={{ width:'200px',color: '#000000', textDecoration: 'underline', fontFamily:'Poppins,sans-serif',fontSize: '16px',fontWeight: '600',lineHeight:'0px',textAlign:'center',
                     left:'80px',position:'relative'
                     }}>
                     Questionwise analysis
@@ -1429,6 +1454,13 @@ try {
                  </div>
               </div>
             )}
+
+      
+{selectedQuizId && (
+        <div style={{ marginTop: '20px' }}>
+          <QuestionAnalysis quizId={selectedQuizId} />
+        </div>
+      )}
 
 
       
