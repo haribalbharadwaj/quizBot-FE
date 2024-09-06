@@ -312,6 +312,7 @@ const handleInputsBlock = ()=>{
   if(clickedButton==='qna'){
     setIsQABlockVisible(true);
     setIsPollBlockVisible(false);
+    setIsCreateQuizkVisible(false);
     
     console.log('type:', clickedButton);
   }
@@ -320,6 +321,7 @@ const handleInputsBlock = ()=>{
     setIsPollBlockVisible(true);
     setIsQABlockVisible(false);
     console.log('type:', clickedButton);
+    setIsCreateQuizkVisible(false);
   }
 }
 
@@ -672,6 +674,9 @@ try {
   setQAQuestion('');
   setPollQuestion('');
   setCorrectAnswerIndex(null);
+  setIsQABlockVisible(false);
+  setIsPollBlockVisible(false);
+  setClickedButton(null);
 
 } catch (error) {
   console.error('Error creating quiz', error);

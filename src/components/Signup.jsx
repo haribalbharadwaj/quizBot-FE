@@ -139,6 +139,14 @@ function Signup() {
 
           </div>
         <div className='container' style={{ width: '606px', height: '245px',top:'70px', position: 'relative' }}>
+
+        <style>
+    {`
+      input.error::placeholder {
+        color: red;
+      }
+    `}
+  </style>
   <form onSubmit={handleSubmit} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
     
     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
@@ -165,6 +173,7 @@ function Signup() {
         lineHeight: '18px',
         paddingLeft: '10px',
       }}
+        className={error.name ? 'error' : ''}
         id="name"
         type="text"
         name="name"
@@ -198,6 +207,7 @@ function Signup() {
         lineHeight: '18px',
         paddingLeft: '10px',
       }}
+        className={error.email ? 'error' : ''}
         id="email"
         type="email"
         name="email"
@@ -231,6 +241,7 @@ function Signup() {
         lineHeight: '18px',
         paddingLeft: '10px',
       }}
+        className={error.password ? 'error' : ''}
         id="password"
         name="password"
         type="password"
@@ -258,15 +269,16 @@ function Signup() {
         width:'388px',
         height: '30px',
         borderRadius: '10px',
-        border: error.confirmPassword ? '1px solid #D60000' : '1px solid #F4F4F4',
+        border: password !== confirmPassword && confirmPassword.length > 0 ? '1px solid #D60000' : '1px solid #F4F4F4',
         background: '#F4F4F4',
-        color: error.confirmPassword ? 'red' : 'initial',
+        color: password !== confirmPassword && confirmPassword.length > 0 ? 'red' : '#474444',
         fontFamily: 'Poppins, sans-serif',
         fontSize: '12px',
         fontWeight: '500',
         lineHeight: '18px',
         paddingLeft: '10px',
       }}
+        className={error.confirmPassword ? 'error' : ''}
         id="confirmPassword"
         type="password"
         name="confirmPassword"

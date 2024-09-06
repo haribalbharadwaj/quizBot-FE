@@ -153,6 +153,15 @@ const handleRegister=()=>{
 
           </div>
         <div className='container' style={{ width: '518px', height: '107px',top:'20px', position: 'relative',left:'-15px' }}>
+
+          
+        <style>
+    {`
+      input.error::placeholder {
+        color: red;
+      }
+    `}
+  </style>
   <form onSubmit={handleSubmit} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
     
     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
@@ -178,6 +187,7 @@ const handleRegister=()=>{
         lineHeight: '18px',
         paddingLeft: '10px',
       }}
+      className={error.email ? 'error' : ''}
         id="email"
         type="email"
         name="email"
@@ -211,6 +221,7 @@ const handleRegister=()=>{
         lineHeight: '18px',
         paddingLeft: '10px',
       }}
+        className={error.password ? 'error' : ''}
         id="password"
         name="password"
         type="password"

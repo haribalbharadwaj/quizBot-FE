@@ -123,17 +123,19 @@ function Dashboard (){
 
   
     const handleInputsBlock = ()=>{
+      
       if(clickedButton==='qna'){
         setIsQABlockVisible(true);
-        setIsPollBlockVisible(false);
-        
+        setIsPollBlockVisible(false); 
         console.log('type:', clickedButton);
+        setIsCreateQuizkVisible(false);
       }
       else if(clickedButton==='poll'){
        // handlePollBlockVisibility();
         setIsPollBlockVisible(true);
         setIsQABlockVisible(false);
         console.log('type:', clickedButton);
+        setIsCreateQuizkVisible(false);
       }
     }
 
@@ -480,6 +482,9 @@ const handleQuizName = async () => {
       setQAQuestion('');
       setPollQuestion('');
       setCorrectAnswerIndex(null);
+      setIsQABlockVisible(false);
+      setIsPollBlockVisible(false);
+      setClickedButton(null);
 
   } catch (error) {
       console.error('Error creating quiz', error);
