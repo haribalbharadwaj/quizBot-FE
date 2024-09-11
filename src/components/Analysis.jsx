@@ -227,8 +227,17 @@ const handleCancelDelete = () => {
 const handleShareClick = (quizId) => {
   const quizUrl = `${window.location.origin}/quiz/${quizId}`;
   navigator.clipboard.writeText(quizUrl)
-    .then(() => alert('Quiz link copied to clipboard!'))
-    .catch(() => alert('Failed to copy quiz link.'));
+  .then(() => {
+    toast.success('Link copied to clipboard!', {
+      position: 'top-right',
+    });
+  })
+  .catch((err) => {
+    toast.error('Failed to copy the link!', {
+      position: 'bottom-right',
+    });
+    console.error('Failed to copy the link: ', err);
+  });
 };
 
 const [newQuestion, setNewQuestion] = useState({
@@ -765,6 +774,9 @@ const handleLinkClick = (quizId) => {
       {/* Analysis Content */}
       <div style={{ width: '1087px', height: '832px', left: '193px', background: '#EDEDED',top:'0px',position:'absolute' }}>
 
+      <ToastContainer 
+                      style={{top:'27px',position:'absolute'}}/>
+
         <h1 style={{ top:'60px',left:'374px',position:'absolute',fontFamily:'Poppins,sans-serif',fontSize: '50px',fontWeight: '600',lineHeight:'75px',textAlign:'center',color:'#5076FF'}}>Quiz Analysis</h1>
 
         <div style={{width:'929px',height:'360px',top:'187px',left:'79px',position:'absolute'}}>
@@ -778,6 +790,7 @@ const handleLinkClick = (quizId) => {
                 <div style={{display: 'flex', flexDirection: 'row', fontWeight: 'bold',gap:'25px',
                   width:'925px',height:'35px',top:'80px',left:'250px',borderRadius:'10px',background:'#5076FF',color:'#FFFFFF',position:'sticky',
                   }}>
+
            
                   <p style={{ width:'60px',fontFamily:'Poppins,sans-serif',fontSize: '16px',fontWeight: '600',lineHeight:'0px',textAlign:'center',marginLeft:'10px'}}>Sl. No.</p>
                   <p style={{fontFamily:'Poppins,sans-serif',fontSize: '16px',fontWeight: '600',lineHeight:'0px',textAlign:'center',marginLeft:'10px'}}>Quiz Name</p>
