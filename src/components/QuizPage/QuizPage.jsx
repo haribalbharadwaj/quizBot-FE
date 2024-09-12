@@ -187,14 +187,7 @@ const QuizPage = () => {
   const isLastQuestion = currentQuestionIndex === quiz.questions.length - 1;
 
   return (
-    <div style={{ 
-      background: '#041325', 
-      padding: '20px', 
-      maxWidth: '1000px', 
-      margin: '0 auto', 
-      borderRadius: '15px',
-      position: 'relative'
-    }} className='outer-container'>
+    <div style={{}} className='outer-container'>
       <div style={{ 
         background: '#FFFFFF', 
         borderRadius: '15px', 

@@ -993,8 +993,8 @@ const handleLinkClick = (quizId) => {
       {/* Create Quiz Popup */}
       {isCreateQuizkVisible && (
                  <div>
-                    <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
-                <div ref={popupRef} style={{width:'845px',height:'422px',top:'266px',left:'25%',borderRadius:'10px',background:'#FFFFFF',display:'flex',flexDirection:'column',position:'absolute'}}>
+                    <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)',zIndex:2000 }}></div>
+                <div ref={popupRef} style={{width:'845px',height:'422px',top:'266px',left:'25%',borderRadius:'10px',background:'#FFFFFF',display:'flex',flexDirection:'column',position:'absolute',zIndex:2000}}>
                     <input style={{width:'673px',height:'81px',top:'98px',left:'86px',borderRadius:'10px',boxShadow:'0px 0px 25px 0px #00000026',position:'absolute',
                          border: 'none', outline: 'none',color: '#9F9F9F','::placeholder': {
                     color: '#9F9F9F',                   
@@ -1049,8 +1049,8 @@ const handleLinkClick = (quizId) => {
       
       {isQABlockVisible && (
               <div>
-                  <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
-                  <div style={{width:'845px',height:'671px',top:'83px',left:'217px',position:'absolute',background:'#FFFFFF'}}>
+                  <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)',zIndex:2000 }}></div>
+                  <div style={{width:'845px',height:'671px',top:'83px',left:'217px',position:'absolute',background:'#FFFFFF',zIndex:2000}}>
                       <div>
                           <div className="circle"  style={{ display: 'flex', gap: '10px', flexWrap: 'wrap',top:'43px',left:'94px',position:'absolute'}}>
                             {circles.map((circle, index) => (
@@ -1280,8 +1280,8 @@ const handleLinkClick = (quizId) => {
       {isPollBlockVisible && (
 
 <div>
-     <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
-        <div style={{width:'845px',height:'671px',top:'83px',left:'217px',position:'absolute',background:'#FFFFFF'}}>
+     <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)',zIndex:2000 }}></div>
+        <div style={{width:'845px',height:'671px',top:'83px',left:'217px',position:'absolute',background:'#FFFFFF',zIndex:2000}}>
           <div>
             <div className="circle"  style={{ display: 'flex', gap: '10px', flexWrap: 'wrap',top:'43px',left:'94px',position:'absolute'}}>
               {circles.map((circle, index) => (
@@ -1451,9 +1451,9 @@ const handleLinkClick = (quizId) => {
 
 {isPublishedVisible && (
               <div>
-                 <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
+                 <div className="overlay" style={{ width: '100vw', position: 'fixed', top: '0', left: '0', height: '200vh', backgroundColor: 'rgba(0, 0, 0, 0.5)',zIndex:2000 }}></div>
 
-                 <div style={{width:'845px',height:'481px',top:'176px',left:'218px',borderRadius:'10px',background:'#FFFFFF',display:'flex',flexDirection:'column',position:'absolute'}}>
+                 <div style={{width:'845px',height:'481px',top:'176px',left:'218px',borderRadius:'10px',background:'#FFFFFF',display:'flex',flexDirection:'column',position:'absolute',zIndex:2000}}>
 
                   <span style={{width:'30px',height:'19.91px',top:'5px',left:'815px',border:'3.5px',color:'#474444',position:'absolute',
                     fontFamily:'Poppins,sans-serif',fontSize: '20px',fontWeight: '300',lineHeight:'37.5px',
